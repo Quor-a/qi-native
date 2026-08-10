@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- TTS -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="语音合成 TTS" android:textSize="13sp" android:textColor="@color/rose"
+                android:textStyle="bold" android:layout_marginBottom="8dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="?attr/colorSurface"
+                android:elevation="1dp" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginTop="8dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="语速" android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <TextView android:id="@+id/speedVal" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="1.0×" android:textSize="14sp"
+                        android:textColor="@color/rose" android:textStyle="bold" />
+                </LinearLayout>
+                <SeekBar android:id="@+id/speedSeek" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:max="100" android:progress="50" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginTop="4dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="音调" android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <TextView android:id="@+id/pitchVal" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="0" android:textSize="14sp"
+                        android:textColor="@color/rose" android:textStyle="bold" />
+                </LinearLayout>
+                <SeekBar android:id="@+id/pitchSeek" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:max="12" android:progress="6" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="自动播放她的语音" android:textSize="14.5sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <androidx.appcompat.widget.SwitchCompat android:id="@+id/autoplaySwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:checked="true" />
+                </LinearLayout>
+
+                <Button android:id="@+id/previewBtn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" android:layout_height="46dp"
+                    android:layout_marginTop="8dp" android:text="▶ 试听「今天也辛苦啦」"
+                    android:textAllCaps="false" app:strokeColor="@color/rose"
+                    app:strokeWidth="1.5dp" />
+            </LinearLayout>
+
+            <!-- TTS 模型 / 服务商 -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="语音合成模型" android:textSize="13sp" android:textColor="@color/rose"
+                android:textStyle="bold" android:layout_marginTop="18dp" android:layout_marginBottom="8dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="?attr/colorSurface"
+                android:elevation="1dp" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="服务商" android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <Spinner android:id="@+id/ttsProviderSpin"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/ttsCloudBox"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:visibility="gone"
+                    android:layout_marginTop="12dp">
+                    <TextView android:id="@+id/ttsDescText"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="@color/ink_soft"
+                        android:layout_marginBottom="8dp" />
+                    <LinearLayout android:id="@+id/ttsProviderConfig"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- STT -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="语音识别 STT" android:textSize="13sp" android:textColor="@color/rose"
+                android:textStyle="bold" android:layout_marginTop="18dp" android:layout_marginBottom="8dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="?attr/colorSurface"
+                android:elevation="1dp" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginTop="8dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="断句静音" android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <TextView android:id="@+id/silenceVal" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="800ms" android:textSize="14sp"
+                        android:textColor="@color/rose" android:textStyle="bold" />
+                </LinearLayout>
+                <SeekBar android:id="@+id/silenceSeek" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:max="2000" android:progress="800" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="自动标点" android:textSize="14.5sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <androidx.appcompat.widget.SwitchCompat android:id="@+id/autopuncSwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:checked="true" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="AI 情绪标签" android:textSize="14.5sp"
+                            android:textColor="?attr/colorOnSurface" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="让 AI 在朗读时自然带情绪起伏" android:textSize="11.5sp"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <androidx.appcompat.widget.SwitchCompat android:id="@+id/emotionSwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="AI 语色路由" android:textSize="14.5sp"
+                            android:textColor="?attr/colorOnSurface" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="不同段落自动分配不同音色（旁白/角色）" android:textSize="11.5sp"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <androidx.appcompat.widget.SwitchCompat android:id="@+id/voiceColorSwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- STT 模型 / 服务商 -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="语音识别模型" android:textSize="13sp" android:textColor="@color/rose"
+                android:textStyle="bold" android:layout_marginTop="18dp" android:layout_marginBottom="8dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="?attr/colorSurface"
+                android:elevation="1dp" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="服务商" android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <Spinner android:id="@+id/sttProviderSpin"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- 端侧离线识别（本机模型，不联网） -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="端侧离线识别（本机模型）" android:textSize="14.5sp"
+                            android:textColor="?attr/colorOnSurface" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="下载约 22MB 模型到本机，语音不出设备" android:textSize="11.5sp"
+                            android:textColor="@color/ink_soft" />
+                    </LinearLayout>
+                    <androidx.appcompat.widget.SwitchCompat android:id="@+id/sttOnDeviceSwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/sttOnDeviceBox"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:visibility="gone"
+                    android:layout_marginTop="12dp">
+                    <TextView android:id="@+id/sttOnDeviceStatus"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="@color/ink_soft"
+                        android:layout_marginBottom="8dp" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/sttCloudBox"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:visibility="gone"
+                    android:layout_marginTop="12dp">
+                    <TextView android:id="@+id/sttDescText"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="@color/ink_soft"
+                        android:layout_marginBottom="8dp" />
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                        android:orientation="horizontal" android:gravity="center_vertical"
+                        android:layout_marginTop="4dp">
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="走 /chat/completions（多模态音频）" android:textSize="14.5sp"
+                                android:textColor="?attr/colorOnSurface" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="开启后复用当前聊天模型端点，以音频消息转写" android:textSize="11.5sp"
+                                android:textColor="@color/ink_soft" />
+                        </LinearLayout>
+                        <androidx.appcompat.widget.SwitchCompat android:id="@+id/sttChatCompletionsSwitch"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout android:id="@+id/sttProviderConfig"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 语音球 -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="语音球" android:textSize="13sp" android:textColor="@color/rose"
+                android:textStyle="bold" android:layout_marginTop="18dp" android:layout_marginBottom="8dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="?attr/colorSurface"
+                android:elevation="1dp" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="启用语音球" android:textSize="14.5sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <androidx.appcompat.widget.SwitchCompat android:id="@+id/ballEnableSwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:checked="true" />
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="大小" android:textSize="13.5sp" android:textColor="@color/ink_soft"
+                    android:layout_marginTop="6dp" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/ballSizeChips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+                    <com.google.android.material.chip.Chip android:id="@+id/size0"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="小" />
+                    <com.google.android.material.chip.Chip android:id="@+id/size1"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="中" android:checked="true" />
+                    <com.google.android.material.chip.Chip android:id="@+id/size2"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="大" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="颜色" android:textSize="13.5sp" android:textColor="@color/ink_soft"
+                    android:layout_marginTop="6dp" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/ballColorChips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+                    <com.google.android.material.chip.Chip android:id="@+id/col0"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="桃粉" android:checked="true" />
+                    <com.google.android.material.chip.Chip android:id="@+id/col1"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="天蓝" />
+                    <com.google.android.material.chip.Chip android:id="@+id/col2"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="藕荷" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="唤醒方式" android:textSize="13.5sp" android:textColor="@color/ink_soft"
+                    android:layout_marginTop="6dp" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/ballWakeChips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+                    <com.google.android.material.chip.Chip android:id="@+id/wake0"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="长按说话" android:checked="true" />
+                    <com.google.android.material.chip.Chip android:id="@+id/wake1"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="点按说话" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="记住上次位置" android:textSize="14.5sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <androidx.appcompat.widget.SwitchCompat android:id="@+id/ballRememberSwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:checked="true" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="24dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

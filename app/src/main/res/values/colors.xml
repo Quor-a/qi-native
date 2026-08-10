@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="peach">#FFB6A8</color>
+    <color name="blush">#FF8FA3</color>
+    <color name="rose">#E86A8C</color>
+    <color name="lavender">#C9B6E4</color>
+    <color name="ink">#3A2E33</color>
+    <color name="ink_soft">#7A6B72</color>
+    <color name="ink_faint">#B5A8AE</color>
+    <color name="bg">#FFF6F2</color>
+    <color name="card">#FFFFFFFF</color>
+    <color name="line">#F0E2DC</color>
+    <color name="bubble_them">#FFFFFF</color>
+    <color name="bubble_me">#FFE3D6</color>
+    <color name="ok">#5BB98C</color>
+    <color name="warn">#E8A33D</color>
+</resources>

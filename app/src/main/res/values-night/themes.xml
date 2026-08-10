@@ -1,0 +1,15 @@
+<resources>
+    <style name="Theme.Qi" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/rose</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:colorBackground">#1E1A1D</item>
+        <item name="colorSurface">#2A2429</item>
+        <item name="colorOnSurface">#F3E9EE</item>
+        <item name="colorOnSurfaceVariant">#A89CA4</item>
+        <item name="colorOnBackground">#F3E9EE</item>
+        <item name="android:statusBarColor">#1E1A1D</item>
+        <item name="android:navigationBarColor">#1E1A1D</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="bottomNavigationStyle">@style/Widget.Qi.BottomNav</item>
+    </style>
+</resources>

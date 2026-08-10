@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>权限使用声明</title>
+<style>
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #222; line-height: 1.7; padding: 4px 8px; }
+  h2 { font-size: 18px; }
+  h3 { font-size: 15px; margin-top: 18px; }
+  p { font-size: 14px; }
+  .tag { display:inline-block; font-size:12px; padding:1px 7px; border-radius:9px; background:#eef; color:#337; margin-right:6px; }
+  .tag.req { background:#fee; color:#c33; }
+  .tag.tool { background:#efe; color:#3a3; }
+  .tag.special { background:#fef; color:#a3a; }
+  ul { font-size: 14px; } li { margin: 3px 0; }
+</style>
+</head>
+<body>
+<h2>权限使用声明</h2>
+<p>「栖」是一款本地优先的 AI 陪伴应用。为支持可扩展的「工具」子系统（让 AI 在您授权后调用设备能力），应用<strong>声明</strong>了较广泛的权限集合；但<strong>绝大多数危险权限默认不授予</strong>，仅在您实际触发对应功能时才请求，且被拒绝时相关功能会返回友好提示而不会崩溃。</p>
+
+<h3><span class="tag req">必要</span>应用运行基础权限</h3>
+<ul>
+  <li><strong>INTERNET（网络）</strong>：连接您在「模型配置」中填写的 AI 接口、加载在线资源。无此权限应用无法对话。</li>
+  <li><strong>RECORD_AUDIO（麦克风）</strong>：语音输入、语音通话与语音球悬浮窗。</li>
+  <li><strong>FOREGROUND_SERVICE</strong> 及其子类型（microphone / data_sync / media_playback）：后台语音识别、语音球常驻。</li>
+  <li><strong>POST_NOTIFICATIONS</strong>：Android 13+ 显示语音球与提醒通知。</li>
+  <li><strong>SYSTEM_ALERT_WINDOW（悬浮窗）</strong>：语音球悬浮窗，需在系统设置中手动授予。</li>
+  <li><strong>RECEIVE_BOOT_COMPLETED</strong>：开机后恢复提醒与语音球（需您主动启用）。</li>
+</ul>
+
+<h3><span class="tag tool">按需</span>工具子系统权限（核心亮点）</h3>
+<p>内置「工具」子系统使 AI 可在您授权后调用设备能力。以下危险权限<strong>仅在对应工具被实际调用时才会请求</strong>：</p>
+<ul>
+  <li><strong>短信</strong>：SEND_SMS / READ_SMS / RECEIVE_SMS / RECEIVE_MMS / SEND_MMS —— 工具「发送 / 读取短信」时请求。</li>
+  <li><strong>电话</strong>：CALL_PHONE / READ_PHONE_STATE / READ_CALL_LOG / WRITE_CALL_LOG / READ_PHONE_NUMBERS —— 工具「拨打电话 / 读取通话记录」时请求。</li>
+  <li><strong>通讯录</strong>：READ_CONTACTS / WRITE_CONTACTS / GET_ACCOUNTS —— 工具「查询联系人」时请求。</li>
+  <li><strong>日历</strong>：READ_CALENDAR / WRITE_CALENDAR —— 工具「读写日历事件」时请求。</li>
+  <li><strong>定位</strong>：ACCESS_FINE_LOCATION / ACCESS_COARSE_LOCATION / ACCESS_BACKGROUND_LOCATION —— 工具「获取位置 / 天气」时请求。</li>
+  <li><strong>相机</strong>：CAMERA —— 工具「拍照 / 扫码」时请求。</li>
+  <li><strong>存储</strong>：READ_MEDIA_IMAGES / READ_MEDIA_VIDEO / READ_MEDIA_AUDIO，以及旧版 READ/WRITE_EXTERNAL_STORAGE —— 工具「读写本地文件」时请求。</li>
+  <li><strong>其他辅助</strong>：VIBRATE（振动反馈）、ACCESS_NETWORK_STATE / ACCESS_WIFI_STATE（网络状态）、SET_ALARM / SCHEDULE_EXACT_ALARM（设置闹钟 / 提醒）。</li>
+</ul>
+
+<h3><span class="tag special">特殊</span>系统级权限（需手动在设置授予）</h3>
+<ul>
+  <li><strong>PACKAGE_USAGE_STATS</strong>：工具「查询应用使用情况」时请求（UsageStatsManager）。</li>
+  <li><strong>MANAGE_EXTERNAL_STORAGE</strong>：工具「访问全部文件」时请求（Android 11+）。</li>
+  <li><strong>WRITE_SETTINGS</strong>：工具「修改系统设置」时请求。</li>
+  <li><strong>REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</strong>：引导关闭电池优化以保证后台语音连续。</li>
+  <li><strong>ACCESS_NOTIFICATION_POLICY</strong>：工具「勿扰模式控制」时请求。</li>
+</ul>
+
+<h3><span class="tag">占位</span>外部集成权限（对应库未引入时零影响）</h3>
+<ul>
+  <li><strong>Shizuku</strong>（moe.shizuku.manager.permission.API / API_V23）：若您安装 Shizuku 并授权，可让工具以更高权限执行 shell 命令。</li>
+  <li><strong>ACI</strong>（ai.aci.permission.CALL / DISCOVER）：外部 AI 命令接口占位声明。</li>
+</ul>
+
+<h3>系统 / 包可见性</h3>
+<ul>
+  <li><strong>QUERY_ALL_PACKAGES</strong>：Android 11+ 查询已安装应用，用于工具与内置浏览器分流。</li>
+  <li><strong>WAKE_LOCK / CHANGE_WIFI_STATE / NFC</strong> 等：系统能力占位声明。</li>
+</ul>
+
+<h3>数据处理原则</h3>
+<ul>
+  <li><strong>本地优先</strong>：聊天记录、灵魂卡设定、AI 发送的文件默认仅保存在您本机存储中。</li>
+  <li><strong>网络最小化</strong>：所有 HTTP / SSE 请求仅发往您在「模型配置」中填写的接口地址；应用未内置任何第三方数据采集 SDK。</li>
+  <li><strong>按需授权</strong>：危险权限仅在对应工具被实际调用时请求，您可随时在系统设置中撤回。</li>
+</ul>
+
+<p style="color:#888;font-size:12px;margin-top:24px;">栖 · 为灵魂找一个栖息处</p>
+</body>
+</html>

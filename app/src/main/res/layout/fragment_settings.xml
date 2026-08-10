@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorOnSurface"
+        android:layout_marginBottom="14dp" />
+
+    <LinearLayout
+        android:id="@+id/rowModel"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+            android:src="@drawable/ic_model" app:tint="@color/rose" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:paddingStart="14dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="模型配置" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" android:text="温度 · 记忆 · 回复长度"
+                android:textSize="12sp" android:textColor="@color/ink_soft" />
+        </LinearLayout>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rowVoice"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+            android:src="@drawable/ic_voice" app:tint="@color/rose" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:paddingStart="14dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="语音服务" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" android:text="TTS · STT · 语音球"
+                android:textSize="12sp" android:textColor="@color/ink_soft" />
+        </LinearLayout>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rowVoiceChat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+            android:src="@drawable/ic_mic" app:tint="@color/rose" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:paddingStart="14dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="语音聊天" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" android:text="对话框内实时语音对话 · 按住即说"
+                android:textSize="12sp" android:textColor="@color/ink_soft" />
+        </LinearLayout>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rowPerm"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+            android:src="@drawable/ic_lock" app:tint="@color/rose" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:paddingStart="14dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="权限" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" android:text="麦克风 · 悬浮窗 · 通知 · 存储 · 电池"
+                android:textSize="12sp" android:textColor="@color/ink_soft" />
+        </LinearLayout>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rowBrowser"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+            android:src="@drawable/ic_globe" app:tint="@color/rose" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:paddingStart="14dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="浏览器" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" android:text="内置网页浏览 · 下载 · AI 亦可后台调用"
+                android:textSize="12sp" android:textColor="@color/ink_soft" />
+        </LinearLayout>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rowStorage"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+            android:src="@drawable/ic_upload" app:tint="@color/rose" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:paddingStart="14dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="存储与备份" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" android:text="聊天记录 · 灵魂卡导出"
+                android:textSize="12sp" android:textColor="@color/ink_soft" />
+        </LinearLayout>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rowAbout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+            android:src="@drawable/ic_soul" app:tint="@color/rose" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:paddingStart="14dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="关于栖" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" android:text="为灵魂找一个栖息处"
+                android:textSize="12sp" android:textColor="@color/ink_soft" />
+        </LinearLayout>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+    </LinearLayout>
+
+</LinearLayout>

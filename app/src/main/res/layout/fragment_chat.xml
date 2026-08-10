@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <!-- 顶部会话头部：贴合正常聊天软件的会话栏 -->
+    <LinearLayout
+        android:id="@+id/chatHeader"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="6dp"
+        android:background="?attr/colorSurface"
+        android:elevation="2dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- 头像 + 在线点 -->
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+            <ImageView
+                android:id="@+id/chatAva"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/grad_xiaoqi"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_soul" />
+            <View
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_gravity="bottom|end"
+                android:background="@drawable/bg_dot_online" />
+        </FrameLayout>
+
+        <!-- 名称 + 状态/模型行 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="12dp">
+
+            <TextView
+                android:id="@+id/chatName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/soul_xiaoqi"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface" />
+
+            <!-- 状态行：点此切换模型 -->
+            <LinearLayout
+                android:id="@+id/modelPill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="2dp"
+                android:background="?attr/selectableItemBackground"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingEnd="6dp">
+                <View
+                    android:id="@+id/onlineDot"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/bg_dot_online" />
+                <TextView
+                    android:id="@+id/chatStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/online"
+                    android:textSize="12sp"
+                    android:textColor="@color/ink_soft" />
+                <TextView
+                    android:id="@+id/modelPillName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="gpt-4o-mini"
+                    android:textSize="12sp"
+                    android:textColor="@color/ink_faint" />
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="2dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/ink_faint" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 更多菜单 -->
+        <ImageView
+            android:id="@+id/chatMenu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="6dp"
+            android:src="@drawable/ic_more"
+            app:tint="@color/ink_soft"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="2dp"
+            android:contentDescription="菜单" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <!-- messages + voice ball -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+    </FrameLayout>
+
+    <!-- voice-chat status banner -->
+    <TextView
+        android:id="@+id/vcStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:textSize="13sp"
+        android:textColor="#FFFFFF"
+        android:background="@color/rose"
+        android:visibility="gone"
+        android:text="聆听中…" />
+
+    <!-- 上传附件预览（选图后显示，发送时随消息发出） -->
+    <LinearLayout
+        android:id="@+id/attachPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="6dp"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="46dp"
+            android:layout_height="46dp">
+            <ImageView
+                android:id="@+id/attachThumb"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_input" />
+            <ImageView
+                android:id="@+id/attachRemove"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="top|end"
+                android:src="@drawable/ic_close"
+                app:tint="#FFFFFF"
+                android:background="@color/rose"
+                android:padding="3dp"
+                android:contentDescription="移除附件" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="图片已附加，发送时一并发出"
+            android:textSize="12sp"
+            android:textColor="@color/ink_soft" />
+    </LinearLayout>
+
+    <!-- input bar — 单行紧凑 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="?attr/colorSurface">
+
+        <ImageButton
+            android:id="@+id/btnAttach"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_input"
+            android:src="@drawable/ic_upload"
+            app:tint="@color/rose"
+            android:scaleType="centerInside"
+            android:contentDescription="上传" />
+
+        <EditText
+            android:id="@+id/inputBox"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/bg_input"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:hint="说点什么…"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurface" />
+
+        <!-- 语音回复：行内迷你开关（无标签） -->
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/autoplaySwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:contentDescription="语音回复" />
+
+        <ImageButton
+            android:id="@+id/btnVoiceChat"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/bg_input"
+            android:src="@drawable/ic_mic"
+            app:tint="@color/rose"
+            android:scaleType="centerInside"
+            android:contentDescription="语音聊天" />
+
+        <ImageButton
+            android:id="@+id/btnSend"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/rose"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_send"
+            app:tint="#FFFFFF"
+            android:scaleType="centerInside"
+            android:contentDescription="发送" />
+    </LinearLayout>
+
+</LinearLayout>

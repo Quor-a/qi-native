@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#F7F8FB"
+    android:paddingBottom="18dp">
+
+    <!-- 拖拽手柄 + 标题 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp"
+        android:gravity="center_horizontal">
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="#C7CCD6"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="形象设计师"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:layout_marginBottom="6dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 启用动态形象 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="启用动态形象"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E5E7EC" />
+
+            <!-- 表情风格 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="表情风格"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+                <Spinner
+                    android:id="@+id/spinnerStyle"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E5E7EC" />
+
+            <!-- 形象背景 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="形象背景"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+                <Spinner
+                    android:id="@+id/spinnerBg"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E5E7EC" />
+
+            <!-- 口形同步 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="语音对口形"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchLipsync"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E5E7EC" />
+
+            <!-- 实时联动 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="实时联动（聊天时跟着动）"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchLive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- 情绪预览 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="情绪预览"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:layout_marginTop="14dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+                <Button android:id="@+id/btnEmoCalm" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="平静" android:textSize="13sp" />
+                <Button android:id="@+id/btnEmoHappy" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="开心" android:textSize="13sp" android:layout_marginStart="6dp" />
+                <Button android:id="@+id/btnEmoSad" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="难过" android:textSize="13sp" android:layout_marginStart="6dp" />
+                <Button android:id="@+id/btnEmoSurprised" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="惊讶" android:textSize="13sp" android:layout_marginStart="6dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnTry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="▶ 试听一句话（看口形 + 情绪）"
+                android:backgroundTint="#E86A8C"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

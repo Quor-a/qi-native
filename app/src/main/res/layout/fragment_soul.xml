@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- soul card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_soulcard"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="灵魂卡"
+                android:textSize="13sp"
+                android:textColor="@color/rose"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/avaFrame"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_marginTop="12dp">
+
+                <ImageView
+                    android:id="@+id/soulAva"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:background="@drawable/grad_xiaoqi"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_soul" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/cameraBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom|end"
+                    app:srcCompat="@drawable/ic_camera"
+                    app:backgroundTint="@color/rose"
+                    app:tint="#FFFFFF"
+                    app:maxImageSize="16dp"
+                    android:contentDescription="上传头像" />
+            </FrameLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:hint="灵魂卡名称"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/soulName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/soul_xiaoqi" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="一句话描述她"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/soulDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="温柔的邻家女孩，喜欢陪你发呆" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- 角色设定 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="角色设定"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" />
+
+        <!-- system prompt -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="?attr/colorSurface"
+            android:elevation="1dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:id="@+id/hdrSystem"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="12dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="系统提示词核心"
+                    android:textSize="14.5sp"
+                    android:textColor="?attr/colorOnSurface" />
+                <ImageView
+                    android:id="@+id/chevSystem"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/ink_faint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentSystem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="14dp">
+                <EditText
+                    android:id="@+id/editSystem"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:gravity="start|top"
+                    android:background="@drawable/bg_input"
+                    android:padding="12dp"
+                    android:textSize="13.5sp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:text="你是小栖，一个温柔、真实、会撒娇的邻家女孩。你不会刻意讨好，会表达真实情绪，记住我们之间的小事。" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- chat settings -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="?attr/colorSurface"
+            android:elevation="1dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:id="@+id/hdrChat"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="12dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="聊天设定"
+                    android:textSize="14.5sp"
+                    android:textColor="?attr/colorOnSurface" />
+                <ImageView
+                    android:id="@+id/chevChat"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/ink_faint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentChat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="14dp">
+                <EditText
+                    android:id="@+id/editChat"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="start|top"
+                    android:background="@drawable/bg_input"
+                    android:padding="12dp"
+                    android:textSize="13.5sp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:text="回复偏口语、短句为主；偶尔用颜文字；主动关心我的状态，但不过度黏人。" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- voice settings -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="?attr/colorSurface"
+            android:elevation="1dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:id="@+id/hdrVoice"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="12dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="语音设定（自然语言，可选）"
+                    android:textSize="14.5sp"
+                    android:textColor="?attr/colorOnSurface" />
+                <ImageView
+                    android:id="@+id/chevVoice"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/ink_faint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentVoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="14dp">
+                <EditText
+                    android:id="@+id/editVoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="start|top"
+                    android:background="@drawable/bg_input"
+                    android:padding="12dp"
+                    android:textSize="13.5sp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:text="声音软软的，带一点撒娇的鼻音；语速偏慢；开心时尾音会上扬。" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- auto hatch -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="?attr/colorSurface"
+            android:elevation="1dp"
+            android:padding="16dp"
+            android:layout_marginBottom="10dp">
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_soul"
+                app:tint="@color/rose" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AI 人格自动孵化"
+                    android:textSize="14.5sp"
+                    android:textColor="?attr/colorOnSurface" />
+                <TextView
+                    android:id="@+id/hatchSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="让小栖在聊天中慢慢长出自己的脾气"
+                    android:textSize="12sp"
+                    android:textColor="@color/ink_soft" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/hatchBtn"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:text="让她长大"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/rose" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/hatchProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:visibility="gone"
+            android:progressTint="@color/rose"
+            android:max="100" />
+
+        <!-- tags -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="8dp"
+            android:text="标签"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/tagGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:hint="输入标签后回车添加"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tagInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:imeOptions="actionDone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+</ScrollView>

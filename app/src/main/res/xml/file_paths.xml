@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- AI 经 send_file 工具写入的「已发送文件」目录（对应 ctx.getExternalFilesDir(null)/sent） -->
+    <external-files-path name="sent" path="sent" />
+</paths>

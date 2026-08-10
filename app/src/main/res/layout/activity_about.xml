@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:paddingBottom="20dp">
+        <ImageView
+            android:layout_width="86dp"
+            android:layout_height="86dp"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitCenter" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="v1.0.0 · 为灵魂找一个栖息处"
+            android:textSize="13sp"
+            android:textColor="@color/ink_soft" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+        <LinearLayout android:id="@+id/aboutAgreement" android:layout_width="match_parent"
+            android:layout_height="56dp" android:orientation="horizontal"
+            android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="12dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="用户协议" android:textSize="14.5sp"
+                android:textColor="?attr/colorOnSurface" />
+            <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1px" android:background="@color/line" />
+        <LinearLayout android:id="@+id/aboutPrivacy" android:layout_width="match_parent"
+            android:layout_height="56dp" android:orientation="horizontal"
+            android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="12dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="隐私政策" android:textSize="14.5sp"
+                android:textColor="?attr/colorOnSurface" />
+            <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1px" android:background="@color/line" />
+        <LinearLayout android:id="@+id/aboutPermission" android:layout_width="match_parent"
+            android:layout_height="56dp" android:orientation="horizontal"
+            android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="12dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="权限使用声明" android:textSize="14.5sp"
+                android:textColor="?attr/colorOnSurface" />
+            <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1px" android:background="@color/line" />
+        <LinearLayout android:id="@+id/aboutOss" android:layout_width="match_parent"
+            android:layout_height="56dp" android:orientation="horizontal"
+            android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="12dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="开源许可" android:textSize="14.5sp"
+                android:textColor="?attr/colorOnSurface" />
+            <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button android:id="@+id/rateBtn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent" android:layout_height="50dp"
+        android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+        android:layout_marginTop="20dp" android:text="去评分 ❤"
+        android:textAllCaps="false" app:backgroundTint="@color/rose" />
+
+    <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+</LinearLayout>

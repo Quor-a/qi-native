@@ -1,0 +1,35 @@
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Generated / build output
+bin/
+gen/
+out/
+release/
+build/
+.gradle/
+.externalNativeBuild/
+.cxx/
+
+# Local configuration (SDK path, etc.)
+local.properties
+
+# Logs / scratch
+*.log
+
+# IDE / OS
+*.iml
+.idea/
+.DS_Store
+captures/
+
+# Keystores / secrets
+*.jks
+*.keystore
+*.pem
+*.env

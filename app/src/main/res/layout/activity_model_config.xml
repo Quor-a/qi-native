@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已保存模板（点「加载」切换为当前 / 可删除）"
+                android:textSize="13sp"
+                android:textColor="@color/rose"
+                android:textStyle="bold" />
+
+            <!-- 动态填充的模型列表：每行一个已保存模型，标「使用中」并可点选 -->
+            <LinearLayout
+                android:id="@+id/modelList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/addModelBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="10dp"
+                android:text="💾 保存为预设"
+                android:textAllCaps="false"
+                app:strokeColor="@color/rose"
+                app:strokeWidth="1.5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="6dp"
+                android:text="当前选中模型的连接配置"
+                android:textSize="13sp"
+                android:textColor="@color/rose"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="?attr/colorSurface"
+                android:elevation="1dp"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="预设服务（自动填端点）"
+                    android:textSize="12.5sp"
+                    android:textColor="@color/ink_soft" />
+
+                <Spinner
+                    android:id="@+id/providerSpin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="6dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="端点地址（如 https://api.openai.com/v1）"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/apiEndpointEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:textSize="13.5sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="API Key"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/apiKeyEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textSize="13.5sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="当前模型的 API 模型名（如 gpt-4o-mini）"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/apiModelEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13.5sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+                    <Button
+                        android:id="@+id/testConnBtn"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:text="测试连接"
+                        android:textAllCaps="false" />
+                    <Button
+                        android:id="@+id/fetchModelsBtn"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:text="获取模型列表"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/connStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12.5sp"
+                    android:textColor="@color/rose" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="6dp"
+                android:text="参数"
+                android:textSize="13sp"
+                android:textColor="@color/rose"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="?attr/colorSurface"
+                android:elevation="1dp"
+                android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="温度" android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <TextView android:id="@+id/tempVal" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="0.7"
+                        android:textSize="14sp" android:textColor="@color/rose" android:textStyle="bold" />
+                </LinearLayout>
+                <SeekBar android:id="@+id/tempSeek" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:max="100" android:progress="70" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginTop="6dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="记忆长度" android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <TextView android:id="@+id/memVal" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="10 轮"
+                        android:textSize="14sp" android:textColor="@color/rose" android:textStyle="bold" />
+                </LinearLayout>
+                <SeekBar android:id="@+id/memSeek" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:max="50" android:progress="10" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginTop="6dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="回复长度" android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <TextView android:id="@+id/lenVal" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="中等"
+                        android:textSize="14sp" android:textColor="@color/rose" android:textStyle="bold" />
+                </LinearLayout>
+                <SeekBar android:id="@+id/lenSeek" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:max="2" android:progress="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="?attr/colorSurface"
+                android:elevation="1dp"
+                android:layout_marginTop="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingStart="16dp" android:paddingEnd="12dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="流式输出" android:textSize="14.5sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/streamSwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:checked="true" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1px"
+                    android:background="@color/line" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingStart="16dp" android:paddingEnd="12dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="思考模式" android:textSize="14.5sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/thinkSwitch"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/saveModelBtn"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:text="保存配置"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/rose" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

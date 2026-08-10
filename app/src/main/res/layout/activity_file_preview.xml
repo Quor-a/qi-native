@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 顶部栏：返回 / 文件名 / 用其他应用打开 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:elevation="2dp">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_close"
+            android:tint="?attr/colorOnSurface"
+            android:contentDescription="返回" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" />
+
+        <Button
+            android:id="@+id/openBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他应用"
+            android:textSize="13sp"
+            android:textColor="@color/rose"
+            style="?attr/materialButtonOutlinedStyle" />
+    </LinearLayout>
+
+    <!-- 内容区：图片 / 网页(SVG·HTML) / 文本 / 提示 四选一显示 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="?attr/colorSurface"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/previewImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <WebView
+            android:id="@+id/previewWeb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/previewText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:freezesText="true"
+            android:padding="16dp"
+            android:lineSpacingExtra="2dp"
+            android:textSize="13sp"
+            android:typeface="monospace"
+            android:textColor="#3A2E33"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/previewNote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="24dp"
+            android:textSize="14sp"
+            android:textColor="#9C8C92"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

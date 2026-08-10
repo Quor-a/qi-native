@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Qi" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/rose</item>
+        <item name="colorPrimaryVariant">@color/blush</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/lavender</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="android:colorBackground">@color/bg</item>
+        <item name="colorSurface">@color/card</item>
+        <item name="colorOnSurface">@color/ink</item>
+        <item name="colorOnSurfaceVariant">@color/ink_soft</item>
+        <item name="colorOnBackground">@color/ink</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="bottomNavigationStyle">@style/Widget.Qi.BottomNav</item>
+    </style>
+
+    <style name="Widget.Qi.BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/bnv_tint</item>
+        <item name="itemTextColor">@color/bnv_tint</item>
+        <item name="android:background">@color/card</item>
+    </style>
+
+    <style name="Widget.Qi.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card</item>
+        <item name="cardCornerRadius">18dp</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+</resources>

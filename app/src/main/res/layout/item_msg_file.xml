@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="start"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp">
+
+    <ImageView
+        android:id="@+id/mini"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/grad_xiaoqi"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_soul" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/bg_bubble_them"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_qi_doc"
+                android:tint="@color/rose" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="220dp"
+                    android:textSize="14.5sp"
+                    android:textStyle="bold"
+                    android:textColor="#3A2E33" />
+
+                <TextView
+                    android:id="@+id/meta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:maxWidth="220dp"
+                    android:textSize="12sp"
+                    android:textColor="#9C8C92" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/thumb"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="6dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_input"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

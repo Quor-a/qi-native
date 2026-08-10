@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <!-- 语音球主体：圆形容器内嵌虚拟形象静态头像（与聊天头部同一张图） -->
+    <FrameLayout
+        android:id="@+id/ball"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/ball_bg"
+        android:clipToOutline="true">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:clickable="false"
+            android:focusable="false" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="#B3000000"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="点我说话"
+        android:textColor="@android:color/white"
+        android:textSize="11sp" />
+</LinearLayout>

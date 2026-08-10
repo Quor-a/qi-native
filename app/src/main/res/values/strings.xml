@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">栖</string>
+
+    <string name="tab_chat">对话</string>
+    <string name="tab_soul">灵魂注入</string>
+    <string name="tab_avatar">形象</string>
+    <string name="tab_settings">设置</string>
+
+    <string name="online">在线</string>
+    <string name="tap_switch_soul">轻点切换 / 编辑灵魂</string>
+
+    <string name="soul_xiaoqi">小栖</string>
+    <string name="soul_acan">阿粲</string>
+</resources>

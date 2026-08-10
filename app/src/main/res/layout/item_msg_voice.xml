@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="start"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <ImageView
+        android:id="@+id/mini"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/grad_xiaoqi"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_soul" />
+
+    <LinearLayout
+        android:id="@+id/bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/bg_bubble_them">
+
+        <ImageButton
+            android:id="@+id/playBtn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_voice_play"
+            android:src="@drawable/ic_play_voice"
+            android:scaleType="centerInside"
+            android:padding="9dp"
+            android:contentDescription="播放语音" />
+
+        <LinearLayout
+            android:id="@+id/wave"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/dur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4″"
+            android:textSize="13sp"
+            android:textColor="@color/ink_soft" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="导出与导入" android:textSize="13sp" android:textColor="@color/rose"
+                android:textStyle="bold" android:layout_marginBottom="8dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="?attr/colorSurface"
+                android:elevation="1dp" android:padding="6dp">
+                <Button android:id="@+id/exportChatBtn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:text="导出聊天记录" android:textAllCaps="false"
+                    app:strokeColor="@color/rose" app:strokeWidth="1.5dp" />
+                <Button android:id="@+id/exportSoulBtn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:layout_marginTop="6dp" android:text="导出灵魂卡"
+                    android:textAllCaps="false" app:strokeColor="@color/rose"
+                    app:strokeWidth="1.5dp" />
+                <Button android:id="@+id/importBtn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:layout_marginTop="6dp" android:text="导入备份"
+                    android:textAllCaps="false" app:strokeColor="@color/rose"
+                    app:strokeWidth="1.5dp" />
+            </LinearLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="云端备份" android:textSize="13sp" android:textColor="@color/rose"
+                android:textStyle="bold" android:layout_marginTop="18dp" android:layout_marginBottom="8dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="?attr/colorSurface"
+                android:elevation="1dp" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="云端备份即将上线" android:textSize="14.5sp"
+                    android:textColor="?attr/colorOnSurface" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="当前数据保存在本机，可用上方「导出 / 导入」做本地备份"
+                    android:textSize="12sp" android:textColor="@color/ink_soft" />
+            </LinearLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="本地存储" android:textSize="13sp" android:textColor="@color/rose"
+                android:textStyle="bold" android:layout_marginTop="18dp" android:layout_marginBottom="8dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="?attr/colorSurface" android:elevation="1dp"
+                android:paddingStart="16dp" android:paddingEnd="12dp" android:layout_marginBottom="10dp">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical" android:paddingEnd="8dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="清理缓存" android:textSize="14.5sp"
+                        android:textColor="?attr/colorOnSurface" />
+                    <TextView android:id="@+id/cacheSize" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginTop="1dp"
+                        android:text="当前缓存 12.4 MB" android:textSize="12sp"
+                        android:textColor="@color/ink_soft" />
+                </LinearLayout>
+                <Button android:id="@+id/clearCacheBtn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content" android:layout_height="40dp"
+                    android:text="清理" android:textAllCaps="false"
+                    app:backgroundTint="@color/rose" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="20dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
