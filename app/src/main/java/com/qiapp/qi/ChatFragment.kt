@@ -28,6 +28,7 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import java.io.File
+import java.util.Locale
 import com.qiapp.qi.databinding.FragmentChatBinding
 import com.qiapp.qi.databinding.ItemMsgFileBinding
 import com.qiapp.qi.databinding.ItemMsgTextBinding
