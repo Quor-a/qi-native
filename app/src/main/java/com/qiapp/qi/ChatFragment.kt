@@ -119,8 +119,8 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         b.chatRecycler.adapter = adapter
 
         refreshHeader()
-        b.chatHeader.setOnClickListener { openSoulSheet() }
-        // 头像不再跳转独立形象界面（形象已合体到语音球，悬浮窗常驻）
+        b.chatHeader.setOnClickListener { openProfile() }
+        // 头像不再跳转独立形象界面（形象已合体到语音球，悬浮窗常驻）；点头像进「资料页」
         b.chatMenu.setOnClickListener { openMenu(it) }
 
         b.modelPill.setOnClickListener { openModelSheet() }
@@ -146,22 +146,18 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     }
 
     private fun refreshHeader() {
-        val s = AppState.soul()
         b.chatName.text = AppState.soulDisplayName()
         applyAvatar(b.chatAva)
-        b.modelPillName.text = AppState.modelName()
         setPresence(false)
     }
 
-    /** 像正常聊天软件那样：对方正在回复时显示「正在输入…」，否则显示「在线」+ 模型。 */
+    /** 像正常聊天软件那样：对方正在回复时显示「正在输入…」，否则显示「在线」。 */
     private fun setPresence(typing: Boolean) {
         if (!isAdded) return
         if (typing) {
             b.chatStatus.text = "正在输入…"
-            b.modelPillName.visibility = View.GONE
         } else {
             b.chatStatus.setText(R.string.online)
-            b.modelPillName.visibility = View.VISIBLE
         }
     }
 
@@ -177,6 +173,23 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             val s = AppState.soul()
             iv.background = ContextCompat.getDrawable(iv.context, s.gradRes)
             iv.setImageResource(R.drawable.ic_soul)
+            iv.imageTintList = ColorStateList.valueOf(Color.WHITE)
+            iv.scaleType = ImageView.ScaleType.CENTER_INSIDE
+        }
+        iv.toCircle()
+    }
+
+    /** 统一「用户自己」头像显示：有上传图则不染色、居中裁切铺满；无图则显示中性灰底 + 白色用户图标。统一圆形。 */
+    private fun applyUserAvatar(iv: ImageView) {
+        val p = Config.userAvatar()
+        if (p.isNotBlank() && File(p).exists()) {
+            iv.background = null
+            iv.imageTintList = null
+            iv.scaleType = ImageView.ScaleType.CENTER_CROP
+            iv.setImageURI(Uri.fromFile(File(p)))
+        } else {
+            iv.background = ContextCompat.getDrawable(iv.context, R.color.ink_faint)
+            iv.setImageResource(R.drawable.ic_user)
             iv.imageTintList = ColorStateList.valueOf(Color.WHITE)
             iv.scaleType = ImageView.ScaleType.CENTER_INSIDE
         }
@@ -298,6 +311,9 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
     private fun openMenu(anchor: View) {
         PopupMenu(requireContext(), anchor).apply {
+            menu.add("用户资料")
+            menu.add("设置")
+            menu.add("朋友圈")
             menu.add("历史对话")
             menu.add("新对话")
             menu.add("清空对话")
@@ -305,6 +321,15 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             menu.add("恢复默认背景")
             setOnMenuItemClickListener {
                 when (it.title) {
+                    "用户资料" -> {
+                        openUserProfile()
+                    }
+                    "设置" -> {
+                        (requireActivity() as MainActivity).openSettings()
+                    }
+                    "朋友圈" -> {
+                        startActivity(android.content.Intent(requireContext(), MomentsActivity::class.java))
+                    }
                     "历史对话" -> {
                         startActivity(android.content.Intent(requireContext(), HistoryActivity::class.java))
                     }
@@ -335,7 +360,8 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     private fun applyChatBg() {
         val path = Config.chatBg
         if (path.isBlank()) {
-            b.chatRecycler.background = null
+            // 未设置自定义背景时，给消息区铺一层暖色聊天壁纸，更像聊天软件而非空白 AI 面板
+            b.chatRecycler.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.chat_wall))
             return
         }
         val f = File(path)
@@ -348,6 +374,14 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             }
         } catch (_: Exception) { /* 解码失败则清空 */ }
         b.chatRecycler.background = null
+    }
+
+    private fun openProfile() {
+        startActivity(android.content.Intent(requireContext(), ProfileActivity::class.java))
+    }
+
+    private fun openUserProfile() {
+        startActivity(android.content.Intent(requireContext(), UserProfileActivity::class.java))
     }
 
     private fun openSoulSheet() {
@@ -370,7 +404,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         }
         d.findViewById<View>(R.id.editSoulBtn)!!.setOnClickListener {
             d.dismiss()
-            (requireActivity() as MainActivity).binding.bottomNav.selectedItemId = R.id.nav_soul
+            startActivity(android.content.Intent(requireContext(), SoulActivity::class.java))
         }
         d.show()
     }
@@ -712,11 +746,19 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
                     x.imgAttach.setImageBitmap(null)
                 }
                 if (m.me) {
+                    // 自己发的消息：右侧显示自己的头像；气泡内不显示名字（名字只保留在顶栏，避免气泡上方重复占位置）
                     x.root.gravity = Gravity.END
                     x.mini.visibility = View.GONE
+                    x.name.visibility = View.GONE
+                    x.miniMe.visibility = View.VISIBLE
+                    applyUserAvatar(x.miniMe)
+                    x.miniMe.setOnClickListener { openUserProfile() }
                     x.bubble.setBackgroundResource(R.drawable.bg_bubble_me)
                 } else {
+                    // AI 消息：左侧显示 AI 头像
                     x.root.gravity = Gravity.START
+                    x.name.visibility = View.GONE
+                    x.miniMe.visibility = View.GONE
                     x.mini.visibility = View.VISIBLE
                     applyAvatar(x.mini)
                     x.bubble.setBackgroundResource(R.drawable.bg_bubble_them)

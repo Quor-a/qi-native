@@ -66,6 +66,15 @@ object ToolEngine {
                 "encoding" to "可选，内容编码：\"base64\" 表示 content 是 base64（用于图片），省略则为纯文本"
             ),
             listOf("filename", "content")))
+        // AI 主动记录长期记忆：把重要的人/事/约定写进记忆库，跨会话不忘。
+        a.put(fn("save_memory",
+            "把值得长期记住的事写进你的记忆库（跨会话持久化）：用户讲过的喜好、重要约定、共同经历、刚聊到的关键细节等。" +
+            "用于你判断「这件事以后还会用上，该记住」的时刻。weight 1-3 表示重要程度（3 最重要）。",
+            listOf(
+                "text" to "要记住的内容，简洁一句，例如「用户讨厌被叫全名」「我们约好周五去看展」",
+                "weight" to "可选，重要程度 1-3，默认 2（用户明确说「记住这个」或涉及约定/偏好时用 3）"
+            ),
+            listOf("text")))
         // AI 自动化浏览器：联网搜索 / 抓正文 / 抽链接 / 调接口 / 下载，全部后台无界面
         a.put(AiBrowserTool.spec())
         // 权限型工具（定位 / 短信读取 / 通话记录 / 媒体库 / 手电筒 / 蓝牙 / 日历写入 /
@@ -120,6 +129,7 @@ object ToolEngine {
             "lookup_contact" -> if (ctx != null) lookupContact(ctx, args.optString("name", "")) else "无应用上下文"
             "get_calendar" -> if (ctx != null) getCalendar(ctx, args.optString("days", "")) else "无应用上下文"
             "send_file" -> if (ctx != null) sendFile(ctx, args) else "无应用上下文"
+            "save_memory" -> saveMemory(args)
             // 无界面 AI 浏览器：运行在 qi-llm 后台线程，直接把网页/搜索结果回灌给模型
             AiBrowserTool.NAME -> AiBrowserTool.run(ctx, args)
             // 权限型工具集（定位/短信/通话记录/媒体/手电筒/蓝牙/日历写入/电话/权限自检）
@@ -292,6 +302,18 @@ object ToolEngine {
         } catch (e: Exception) {
             "发送文件失败：${e.message}"
         }
+    }
+
+    /**
+     * 工具 save_memory：把一条长期记忆写入当前灵魂的记忆库（跨会话持久化），
+     * 与「人类资料库提示词 / 人格卡」一起构成 AI 自我演化的三要素之一。
+     */
+    private fun saveMemory(args: JSONObject): String {
+        val text = args.optString("text", "").trim()
+        if (text.isBlank()) return "缺少要记住的内容（text）"
+        val w = args.optString("weight", "2").toIntOrNull()?.coerceIn(1, 3) ?: 2
+        Config.addMemory(AppState.currentSoul, text, w)
+        return "已记住：$text（重要度 $w）。以后我会一直记得。"
     }
 
     /** 按扩展名推断 MIME（覆盖常见文档 / 代码 / 图片类型，缺省 application/octet-stream）。 */

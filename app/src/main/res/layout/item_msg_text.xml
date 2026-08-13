@@ -8,6 +8,7 @@
     android:paddingTop="3dp"
     android:paddingBottom="3dp">
 
+    <!-- AI 头像（左侧，仅 AI 消息显示） -->
     <ImageView
         android:id="@+id/mini"
         android:layout_width="34dp"
@@ -21,6 +22,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <!-- 自己的名字（仅自己发的消息显示） -->
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="12sp"
+            android:textColor="@color/ink_soft"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/bubble"
@@ -45,4 +57,15 @@
             android:background="@drawable/bg_input"
             android:visibility="gone" />
     </LinearLayout>
+
+    <!-- 自己的头像（右侧，仅自己发的消息显示，点击打开用户资料卡） -->
+    <ImageView
+        android:id="@+id/miniMe"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/ink_faint"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_user"
+        android:visibility="gone" />
 </LinearLayout>

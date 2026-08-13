@@ -501,6 +501,15 @@ object Config {
         get() = "currentSoul".getI(0)
         set(v) = "currentSoul".putI(v.coerceIn(0, 1))
 
+    // ---- 用户资料（自己）：名称 + 头像，对应聊天里自己发出的消息显示的名字与头像 ----
+    /** 当前用户名称（默认「我」）；用于对话框自己消息、朋友圈、以及注入 AI 系统提示词。 */
+    fun userName(): String = "userName".get("我")
+    fun setUserName(name: String) = "userName".put(name.trim().takeIf { it.isNotBlank() } ?: "我")
+
+    /** 用户头像本地路径（空表示未设置，用默认图标）。 */
+    fun userAvatar(): String = "userAvatar".get("")
+    fun setUserAvatar(path: String) = "userAvatar".put(path)
+
     // ---- 灵魂卡（可被用户编辑覆盖）----
     fun soulName(idx: Int): String {
         val def = if (idx in AppState.baseSouls.indices) AppState.baseSouls[idx].name else "栖"
@@ -581,6 +590,252 @@ object Config {
         val arr = JSONArray()
         trimmed.forEach { arr.put(it) }
         "soulHatchMarks_$idx".put(arr.toString())
+    }
+
+    // ---- 资料页：模仿聊天软件的「栖号」ID（稳定，生成一次后持久化）----
+    fun soulQiId(idx: Int): String {
+        val existing = "soulQiId_$idx".get("")
+        if (existing.isNotBlank()) return existing
+        val id = genQiId(idx)
+        "soulQiId_$idx".put(id)
+        return id
+    }
+    private fun genQiId(idx: Int): String {
+        val name = soulName(idx)
+        val base = name.lowercase().replace(Regex("[^a-z0-9]"), "").takeIf { it.isNotBlank() } ?: "qi"
+        val t = (System.currentTimeMillis() and 0x7fffffffL).toInt() % 9000
+        val rnd = 1000 + (idx * 7919 + t) % 9000
+        return "qi_${base}_$rnd"
+    }
+
+    // 朋友圈首次自动填充标记（避免每次打开空白页都触发联网 / 重复生成）
+    fun momentsSeeded(idx: Int): Boolean = "momentsSeeded_$idx".getB(false)
+    fun setMomentsSeeded(idx: Int, v: Boolean) = "momentsSeeded_$idx".putB(v)
+
+    // 自我沉淀的性格注解（由「AI 心跳」研究升级时自动追加，区别于用户手写的角色设定）
+    fun soulSelfNotes(idx: Int): List<String> {
+        val raw = "soulSelfNotes_$idx".get("")
+        if (raw.isBlank()) return emptyList()
+        return try {
+            val arr = JSONArray(raw)
+            (0 until arr.length()).mapNotNull { arr.optString(it).takeIf { s -> s.isNotBlank() } }
+        } catch (_: Exception) { emptyList() }
+    }
+    fun addSoulSelfNote(idx: Int, note: String) {
+        val t = note.trim()
+        if (t.isBlank()) return
+        val list = soulSelfNotes(idx).toMutableList()
+        list.add(t)
+        val kept = if (list.size > 8) list.takeLast(8) else list
+        val arr = JSONArray()
+        kept.forEach { arr.put(it) }
+        "soulSelfNotes_$idx".put(arr.toString())
+    }
+
+    // 记忆库（长期记忆）：跨会话持久化，与资料库提示词、人格卡互相关联。
+    // 由助手在聊天中经 save_memory 工具写入，或由「AI 心跳」孵化时从对话蒸馏写入。
+    data class MemoryEntry(val text: String, val ts: Long, val weight: Int)
+
+    fun memoryEntries(idx: Int): List<MemoryEntry> {
+        val raw = "memory_$idx".get("")
+        if (raw.isBlank()) return emptyList()
+        return try {
+            val arr = JSONArray(raw)
+            (0 until arr.length()).mapNotNull { i ->
+                val o = arr.optJSONObject(i) ?: return@mapNotNull null
+                val t = o.optString("t", "")
+                if (t.isBlank()) null else MemoryEntry(t, o.optLong("ts", 0L), o.optInt("w", 1))
+            }
+        } catch (_: Exception) { emptyList() }
+    }
+
+    /** 写入一条长期记忆；weight 1-3 表示重要性，越高越优先被回忆。 */
+    fun addMemory(idx: Int, text: String, weight: Int = 1) {
+        val t = text.trim()
+        if (t.isBlank()) return
+        val list = memoryEntries(idx).toMutableList()
+        list.add(MemoryEntry(t, System.currentTimeMillis(), weight.coerceIn(1, 3)))
+        val kept = if (list.size > 120) list.takeLast(120) else list
+        val arr = JSONArray()
+        kept.forEach { arr.put(JSONObject().put("t", it.text).put("ts", it.ts).put("w", it.weight)) }
+        "memory_$idx".put(arr.toString())
+    }
+
+    /** 取最近/最重要的 N 条记忆摘要（按权重降序），供 system prompt 注入。 */
+    fun memorySummary(idx: Int, n: Int = 10): List<String> {
+        val list = memoryEntries(idx)
+        if (list.isEmpty()) return emptyList()
+        return list.sortedWith(compareByDescending<MemoryEntry> { it.weight }.thenByDescending { it.ts })
+            .take(n).map { it.text }
+    }
+
+    fun clearMemory(idx: Int) = "memory_$idx".put("[]")
+
+    // ---- AI 心跳（后台自动孵化）配置 ----
+    var aiHeartbeatOn: Boolean
+        get() = "aiHeartbeatOn".getB(true)
+        set(v) = "aiHeartbeatOn".putB(v)
+    fun aiHeartbeatMinutes(): Int = "aiHeartbeatMin".getI(30).coerceIn(5, 1440)
+    fun setAiHeartbeatMinutes(m: Int) = "aiHeartbeatMin".putI(m.coerceIn(5, 1440))
+    fun aiHeartbeatLast(): Long = "aiHeartbeatLast".get("0").toLongOrNull() ?: 0L
+    fun setAiHeartbeatLast(t: Long) = "aiHeartbeatLast".put(t.toString())
+
+    // ---- 情绪构架（AI 的心情与情绪底色，驱动说话语气与朋友圈）----
+    fun soulMood(idx: Int): String = "soulMood_$idx".get("")
+    fun setSoulMood(idx: Int, m: String) = "soulMood_$idx".put(m)
+    fun soulEmotion(idx: Int): String = "soulEmotion_$idx".get("")
+    fun setSoulEmotion(idx: Int, e: String) = "soulEmotion_$idx".put(e)
+
+    // ---- 朋友圈动态（AI 与用户共同的社交时间流，支持点赞 + 评论 + AI 回复评论）----
+    /** 单条评论：author 为 "me"（用户）或 "soul:0"/"soul:1"（AI 灵魂回复）。 */
+    data class Comment(
+        val author: String,
+        val text: String,
+        val ts: Long
+    )
+
+    /**
+     * 一条朋友圈动态。
+     * - author：""/"soul:0"/"soul:1" 表示 AI（旧数据 author 为空时按 soulIdx 判定为 AI）；"me" 表示用户自己。
+     * - likes：点赞数；likedByMe：当前用户是否已点赞。
+     * - comments：评论列表（含用户评论与 AI 对评论的回复）。
+     */
+    data class Moment(
+        val id: String,
+        val soulIdx: Int,
+        val text: String,
+        val mood: String,
+        val emotion: String,
+        val sticker: String,   // emoji 字符串，或 "asset:xxx.png"，或 "file:/绝对路径"
+        val ts: Long,
+        val author: String = "",
+        val likes: Int = 0,
+        val likedByMe: Boolean = false,
+        val comments: List<Comment> = emptyList()
+    )
+
+    /** 是否为用户自己发的动态。 */
+    fun isUserMoment(m: Moment): Boolean = m.author == "me"
+
+    /** 读「某灵魂的 AI 动态」列表（author 为空或 "soul:idx"）。 */
+    fun moments(idx: Int): List<Moment> = parseMoments("moments_$idx", idx)
+
+    /** 用户的动态列表（author == "me"）。 */
+    fun userMoments(): List<Moment> = parseMoments("user_moments", 0)
+
+    /** 朋友圈合并流：两个灵魂的 AI 动态 + 用户自己的动态，按时间倒序（最新在前）。 */
+    fun feedMoments(): List<Moment> =
+        (moments(0) + moments(1) + userMoments()).sortedByDescending { it.ts }
+
+    /** 动态作者的展示名：用户 → userName；AI → 灵魂名。 */
+    fun momentAuthorName(m: Moment): String =
+        if (isUserMoment(m)) userName() else soulName(m.soulIdx)
+
+    private fun parseMoments(key: String, idxFallback: Int): List<Moment> {
+        val raw = key.get("")
+        if (raw.isBlank()) return emptyList()
+        return try {
+            val arr = JSONArray(raw)
+            (0 until arr.length()).mapNotNull { i ->
+                val o = arr.optJSONObject(i) ?: return@mapNotNull null
+                val t = o.optString("t", "")
+                val soulIdx = o.optInt("si", idxFallback)
+                val authorRaw = o.optString("au", "")
+                val author = authorRaw.ifBlank { "soul:$soulIdx" }
+                val comments = try {
+                    val ca = o.optJSONArray("cm") ?: JSONArray()
+                    (0 until ca.length()).mapNotNull { j ->
+                        val co = ca.optJSONObject(j) ?: return@mapNotNull null
+                        val ct = co.optString("x", "")
+                        if (ct.isBlank()) null else Comment(co.optString("a", "me"), ct, co.optLong("ts", 0L))
+                    }
+                } catch (_: Exception) { emptyList() }
+                Moment(
+                    o.optString("id", ""),
+                    soulIdx, t,
+                    o.optString("mood", ""),
+                    o.optString("emo", ""),
+                    o.optString("st", ""),
+                    o.optLong("ts", 0L),
+                    author,
+                    o.optInt("lk", 0),
+                    o.optBoolean("lm", false),
+                    comments
+                ).takeIf { t.isNotBlank() || o.optString("st", "").isNotBlank() }
+            }
+        } catch (_: Exception) { emptyList() }
+    }
+
+    private fun saveMoments(key: String, list: List<Moment>) {
+        val arr = JSONArray()
+        list.forEach { mm ->
+            arr.put(JSONObject().apply {
+                put("id", mm.id); put("si", mm.soulIdx); put("t", mm.text)
+                put("mood", mm.mood); put("emo", mm.emotion); put("st", mm.sticker)
+                put("ts", mm.ts); put("au", mm.author); put("lk", mm.likes)
+                put("lm", mm.likedByMe)
+                val ca = JSONArray()
+                mm.comments.forEach { c ->
+                    ca.put(JSONObject().put("a", c.author).put("x", c.text).put("ts", c.ts))
+                }
+                put("cm", ca)
+            })
+        }
+        key.put(arr.toString())
+    }
+
+    /** 追加一条 AI 动态（author 固定为 "soul:idx"）。 */
+    fun addMoment(idx: Int, m: Moment) {
+        val list = moments(idx).toMutableList()
+        list.add(0, m.copy(author = "soul:$idx", soulIdx = idx))
+        val kept = if (list.size > 200) list.take(200) else list
+        saveMoments("moments_$idx", kept)
+    }
+
+    /** 追加一条用户动态（author 固定为 "me"）。 */
+    fun addUserMoment(m: Moment) {
+        val list = userMoments().toMutableList()
+        list.add(0, m.copy(author = "me"))
+        val kept = if (list.size > 200) list.take(200) else list
+        saveMoments("user_moments", kept)
+    }
+
+    /**
+     * 按 id 找到动态并就地更新（点赞 / 评论 / AI 回复评论等）。
+     * 自动定位它所在列表（moments_0 / moments_1 / user_moments）并回写。
+     */
+    fun updateMoment(id: String, block: (Moment) -> Moment) {
+        for (key in listOf("moments_0", "moments_1", "user_moments")) {
+            val list = parseMoments(key, 0).toMutableList()
+            val pos = list.indexOfFirst { it.id == id }
+            if (pos >= 0) {
+                list[pos] = block(list[pos])
+                saveMoments(key, list)
+                return
+            }
+        }
+    }
+
+    fun clearMoments(idx: Int) = saveMoments("moments_$idx", emptyList())
+
+    // 用户/AI 添加的图片贴纸（绝对路径列表，存于应用私有目录）
+    fun userStickers(): List<String> {
+        val raw = "userStickers".get("")
+        if (raw.isBlank()) return emptyList()
+        return try {
+            val arr = JSONArray(raw)
+            (0 until arr.length()).mapNotNull { arr.optString(it).takeIf { s -> s.isNotBlank() } }
+        } catch (_: Exception) { emptyList() }
+    }
+    fun addUserSticker(path: String) {
+        val p = path.trim()
+        if (p.isBlank()) return
+        val list = userStickers().toMutableList()
+        if (list.contains(p)) return
+        list.add(p)
+        val arr = JSONArray()
+        list.forEach { arr.put(it) }
+        "userStickers".put(arr.toString())
     }
 
     // 聊天背景（用户选择的图片本地路径，空表示默认）

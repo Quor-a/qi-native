@@ -25,6 +25,12 @@ class QiApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         installCrashLogger()
+        // 启动 AI 心跳：后台自动孵化（资料库提示词 ↔ 记忆库 ↔ 人格卡），静默运行、不拖慢启动。
+        try {
+            AiHeartbeat.start(this)
+        } catch (_: Exception) {
+            // 心跳启动失败绝不影响主流程
+        }
     }
 
     private fun installCrashLogger() {

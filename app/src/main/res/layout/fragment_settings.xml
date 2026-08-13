@@ -16,6 +16,60 @@
         android:textColor="?attr/colorOnSurface"
         android:layout_marginBottom="14dp" />
 
+    <!-- 我的资料（顶部资料头：大头像 + 名字，点击编辑名称与头像） -->
+    <LinearLayout
+        android:id="@+id/profileHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:padding="14dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/profileAva"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@color/ink_faint"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_user" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="14dp">
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未设置名字"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="点击编辑我的资料（名称 · 头像）"
+                android:textSize="12sp"
+                android:textColor="@color/ink_soft" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right"
+            app:tint="@color/ink_faint" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/rowModel"
         android:layout_width="match_parent"
@@ -35,6 +89,31 @@
                 android:text="模型配置" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:layout_marginTop="1dp" android:text="温度 · 记忆 · 回复长度"
+                android:textSize="12sp" android:textColor="@color/ink_soft" />
+        </LinearLayout>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/ic_chevron_right" app:tint="@color/ink_faint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rowSoul"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+            android:src="@drawable/ic_soul" app:tint="@color/rose" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:paddingStart="14dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="灵魂注入" android:textSize="14.5sp" android:textColor="?attr/colorOnSurface" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" android:text="灵魂卡 · 角色设定 · 标签 · 孵化"
                 android:textSize="12sp" android:textColor="@color/ink_soft" />
         </LinearLayout>
         <ImageView android:layout_width="18dp" android:layout_height="18dp"

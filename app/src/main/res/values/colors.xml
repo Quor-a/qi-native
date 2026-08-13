@@ -12,6 +12,7 @@
     <color name="line">#F0E2DC</color>
     <color name="bubble_them">#FFFFFF</color>
     <color name="bubble_me">#FFE3D6</color>
+    <color name="chat_wall">#FBEFEA</color>
     <color name="ok">#5BB98C</color>
     <color name="warn">#E8A33D</color>
 </resources>

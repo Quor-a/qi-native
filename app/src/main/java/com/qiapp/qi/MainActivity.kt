@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity(), PermissionRequester {
 
     lateinit var binding: ActivityMainBinding
     private var chatFrag: ChatFragment? = null
-    private var soulFrag: SoulFragment? = null
     private var settingsFrag: SettingsFragment? = null
 
     // 权限网关：工具在后台线程请求危险权限时，经此 launcher 在 UI 线程弹框，
@@ -46,16 +45,6 @@ class MainActivity : AppCompatActivity(), PermissionRequester {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.nav_host, chatFrag!!, "chat")
                 .commit()
-        }
-
-        binding.bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_chat -> showFragment("chat") { chatFrag ?: ChatFragment().also { chatFrag = it } }
-                R.id.nav_soul -> showFragment("soul") { soulFrag ?: SoulFragment().also { soulFrag = it } }
-                // 形象已合体到语音球（悬浮窗常驻），独立「虚拟形象界面」入口移除
-                R.id.nav_settings -> showFragment("settings") { settingsFrag ?: SettingsFragment().also { settingsFrag = it } }
-                else -> false
-            }
         }
     }
 
@@ -85,8 +74,14 @@ class MainActivity : AppCompatActivity(), PermissionRequester {
 
     /** 从设置页「语音聊天」入口进入对话框并直接发起语音对话。 */
     fun openChatVoiceChat() {
-        binding.bottomNav.selectedItemId = R.id.nav_chat
+        // 确保显示对话 Fragment（无底部导航时直接切到 chat）
+        showFragment("chat") { chatFrag ?: ChatFragment().also { chatFrag = it } }
         chatFrag?.launchVoiceChat()
+    }
+
+    /** 从对话框 ⋮ 菜单「设置」直接进入设置页。 */
+    fun openSettings() {
+        showFragment("settings") { settingsFrag ?: SettingsFragment().also { settingsFrag = it } }
     }
 
     // ---- 权限网关：供后台线程的工具请求危险权限（对齐上游 QuroPermissionGate）----

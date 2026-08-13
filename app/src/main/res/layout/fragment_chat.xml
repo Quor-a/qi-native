@@ -55,7 +55,7 @@
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface" />
 
-            <!-- 状态行：点此切换模型 -->
+            <!-- 状态行：点此切换模型（不显示模型名，更像一个联系人会话） -->
             <LinearLayout
                 android:id="@+id/modelPill"
                 android:layout_width="wrap_content"
@@ -67,31 +67,18 @@
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
                 android:paddingEnd="6dp">
-                <View
-                    android:id="@+id/onlineDot"
-                    android:layout_width="6dp"
-                    android:layout_height="6dp"
-                    android:background="@drawable/bg_dot_online" />
                 <TextView
                     android:id="@+id/chatStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="0dp"
                     android:text="@string/online"
                     android:textSize="12sp"
                     android:textColor="@color/ink_soft" />
-                <TextView
-                    android:id="@+id/modelPillName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="gpt-4o-mini"
-                    android:textSize="12sp"
-                    android:textColor="@color/ink_faint" />
                 <ImageView
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="3dp"
                     android:src="@drawable/ic_chevron_right"
                     app:tint="@color/ink_faint" />
             </LinearLayout>
@@ -198,29 +185,41 @@
         android:paddingBottom="8dp"
         android:background="?attr/colorSurface">
 
-        <ImageButton
-            android:id="@+id/btnAttach"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:background="@drawable/bg_input"
-            android:src="@drawable/ic_upload"
-            app:tint="@color/rose"
-            android:scaleType="centerInside"
-            android:contentDescription="上传" />
-
-        <EditText
-            android:id="@+id/inputBox"
+        <!-- 输入框 + 左侧内嵌「+」上传按钮 -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="6dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:background="@drawable/bg_input"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:hint="说点什么…"
-            android:textSize="14sp"
-            android:textColor="?attr/colorOnSurface" />
+            android:paddingStart="4dp"
+            android:paddingEnd="6dp">
+
+            <ImageButton
+                android:id="@+id/btnAttach"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_add"
+                app:tint="@color/ink_soft"
+                android:scaleType="centerInside"
+                android:contentDescription="上传" />
+
+            <EditText
+                android:id="@+id/inputBox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:background="@android:color/transparent"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:hint="说点什么…"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurface"
+                android:gravity="center_vertical" />
+        </LinearLayout>
 
         <!-- 语音回复：行内迷你开关（无标签） -->
         <androidx.appcompat.widget.SwitchCompat

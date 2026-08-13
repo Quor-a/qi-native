@@ -106,6 +106,10 @@
         <activity android:name=".PermissionsActivity" android:exported="false" />
         <activity android:name=".StorageActivity" android:exported="false" />
         <activity android:name=".HistoryActivity" android:exported="false" />
+        <activity android:name=".MomentsActivity" android:exported="false" />
+        <activity android:name=".ProfileActivity" android:exported="false" />
+        <!-- 用户自己的资料页：名称 + 头像 + 我的朋友圈入口 -->
+        <activity android:name=".UserProfileActivity" android:exported="false" android:theme="@style/Theme.Qi" />
         <!-- 自写文件预览架构：对话框内点开 AI 发送的文件/图片，在本应用内直接预览 -->
         <activity
             android:name=".FilePreviewActivity"
@@ -119,6 +123,8 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|smallestScreenSize|uiMode"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".AvatarCropActivity" android:exported="false" android:theme="@style/Theme.Qi" />
+        <!-- 灵魂注入：从「设置」进入的子页，内部承载 SoulFragment -->
+        <activity android:name=".SoulActivity" android:exported="false" android:theme="@style/Theme.Qi" />
 
         <receiver android:name=".ReminderReceiver" android:exported="false" />
         <receiver android:name=".BootReceiver" android:exported="false">
